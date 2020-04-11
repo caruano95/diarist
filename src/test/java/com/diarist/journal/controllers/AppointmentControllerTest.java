@@ -1,6 +1,6 @@
 package com.diarist.journal.controllers;
 
-import com.twilio.appointmentreminders.Server;
+import com.diarist.journal.Server;
 import com.diarist.journal.models.Appointment;
 import com.diarist.journal.models.AppointmentService;
 import com.diarist.journal.util.AppSetup;
