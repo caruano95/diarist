@@ -1,0 +1,2 @@
+# diarist
+Journaling made simple
