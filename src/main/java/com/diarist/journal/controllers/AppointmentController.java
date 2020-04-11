@@ -1,10 +1,10 @@
-package com.twilio.appointmentreminders.controllers;
+package com.diarist.journal.controllers;
 
-import com.twilio.appointmentreminders.models.Appointment;
-import com.twilio.appointmentreminders.models.AppointmentService;
-import com.twilio.appointmentreminders.util.AppointmentScheduler;
-import com.twilio.appointmentreminders.util.FieldValidator;
-import com.twilio.appointmentreminders.util.TimeZones;
+import com.diarist.journal.models.Appointment;
+import com.diarist.journal.models.AppointmentService;
+import com.diarist.journal.util.AppointmentScheduler;
+import com.diarist.journal.util.FieldValidator;
+import com.diarist.journal.util.TimeZones;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormat;

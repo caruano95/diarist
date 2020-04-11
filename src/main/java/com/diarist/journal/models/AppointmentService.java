@@ -1,4 +1,4 @@
-package com.twilio.appointmentreminders.models;
+package com.diarist.journal.models;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;

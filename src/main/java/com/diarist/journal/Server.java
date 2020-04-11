@@ -1,9 +1,9 @@
-package com.twilio.appointmentreminders;
+package com.diarist.journal;
 
-import com.twilio.appointmentreminders.controllers.AppointmentController;
-import com.twilio.appointmentreminders.models.AppointmentService;
-import com.twilio.appointmentreminders.util.AppSetup;
-import com.twilio.appointmentreminders.util.LoggingFilter;
+import com.diarist.journal.controllers.AppointmentController;
+import com.diarist.journal.models.AppointmentService;
+import com.diarist.journal.util.AppSetup;
+import com.diarist.journal.util.LoggingFilter;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;

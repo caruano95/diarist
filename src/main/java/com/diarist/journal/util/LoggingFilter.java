@@ -1,4 +1,4 @@
-package com.twilio.appointmentreminders.util;
+package com.diarist.journal.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

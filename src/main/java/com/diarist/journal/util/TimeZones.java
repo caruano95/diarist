@@ -1,4 +1,4 @@
-package com.twilio.appointmentreminders.util;
+package com.diarist.journal.util;
 
 import java.util.*;
 

@@ -1,6 +1,6 @@
-package com.twilio.appointmentreminders.models;
+package com.diarist.journal.models;
 
-import com.twilio.appointmentreminders.util.AppSetup;
+import com.diarist.journal.util.AppSetup;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;

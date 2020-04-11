@@ -1,10 +1,10 @@
-package com.twilio.appointmentreminders.controllers;
+package com.diarist.journal.controllers;
 
 import com.twilio.appointmentreminders.Server;
-import com.twilio.appointmentreminders.models.Appointment;
-import com.twilio.appointmentreminders.models.AppointmentService;
-import com.twilio.appointmentreminders.util.AppSetup;
-import com.twilio.appointmentreminders.util.RequestHandler;
+import com.diarist.journal.models.Appointment;
+import com.diarist.journal.models.AppointmentService;
+import com.diarist.journal.util.AppSetup;
+import com.diarist.journal.util.RequestHandler;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.junit.AfterClass;

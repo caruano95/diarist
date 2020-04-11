@@ -1,6 +1,6 @@
-package com.twilio.appointmentreminders;
+package com.diarist.journal;
 
-import com.twilio.appointmentreminders.util.AppSetup;
+import com.diarist.journal.util.AppSetup;
 import org.flywaydb.core.Flyway;
 
 import java.util.Map;

@@ -1,4 +1,4 @@
-package com.twilio.appointmentreminders.util;
+package com.diarist.journal.util;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;

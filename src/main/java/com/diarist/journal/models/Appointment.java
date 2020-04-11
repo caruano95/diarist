@@ -1,6 +1,6 @@
-package com.twilio.appointmentreminders.models;
+package com.diarist.journal.models;
 
-import com.twilio.appointmentreminders.util.TimeZoneConverter;
+import com.diarist.journal.util.TimeZoneConverter;
 
 import javax.persistence.*;
 

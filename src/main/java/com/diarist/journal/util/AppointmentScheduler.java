@@ -1,8 +1,8 @@
-package com.twilio.appointmentreminders.util;
+package com.diarist.journal.util;
 
 import com.twilio.Twilio;
-import com.twilio.appointmentreminders.models.Appointment;
-import com.twilio.appointmentreminders.models.AppointmentService;
+import com.diarist.journal.models.Appointment;
+import com.diarist.journal.models.AppointmentService;
 import com.twilio.exception.TwilioException;
 import com.twilio.rest.api.v2010.account.Message;
 import com.twilio.type.PhoneNumber;

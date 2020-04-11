@@ -3,12 +3,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.twilio.appointmentreminders</groupId>
-    <artifactId>twilio-appointment-reminders</artifactId>
+    <groupId>com.diarist.journal</groupId>
+    <artifactId>journal-server</artifactId>
     <version>1.0</version>
-    <name>Appointment Reminders</name>
-    <description>Demo application showcasing the creation of appointment reminders using the Twilio
-        API
+    <name>Journal Server</name>
+    <description>
+        An service to handle Journal entries
     </description>
 
     <properties>
@@ -54,7 +54,7 @@
                             <transformers>
                                 <transformer
                                         implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                                    <mainClass>com.twilio.appointmentreminders.Server</mainClass>
+                                    <mainClass>com.diarist.journal.Server</mainClass>
                                 </transformer>
                             </transformers>
                         </configuration>
