@@ -21,7 +21,7 @@ public class LoggingFilter implements Filter {
     @Override
     public void handle(Request request, Response response) throws Exception {
         String requestHeaderString = buildHeadersString(request.headers(),
-                h -> request.headers(h));
+                request::headers);
         String responseHeaderString = buildHeadersString(response.raw().getHeaderNames(),
                 h -> response.raw().getHeader(h));
         String template;
