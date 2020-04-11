@@ -11,18 +11,18 @@ import java.util.Map;
  * to your testing database.
  */
 class Migrator {
-  public static void main(String[] args) throws Exception {
-    AppSetup appSetup = new AppSetup();
+    public static void main(String[] args) throws Exception {
+        AppSetup appSetup = new AppSetup();
 
-    /** Fetches database parameters form environment variables. */
-    Map<String, String> params = appSetup.getParamsFromDbUrl(appSetup.getDatabaseURL());
+        /** Fetches database parameters form environment variables. */
+        Map<String, String> params = appSetup.getParamsFromDbUrl(appSetup.getDatabaseURL());
 
-    /**
-     * Uses Flyway to run database migrations. Migration files are located in
-     * resources/db/migration directory.
-     */
-    Flyway flyway = new Flyway();
-    flyway.setDataSource(params.get("url"), params.get("username"), params.get("password"));
-    flyway.migrate();
-  }
+        /**
+         * Uses Flyway to run database migrations. Migration files are located in
+         * resources/db/migration directory.
+         */
+        Flyway flyway = new Flyway();
+        flyway.setDataSource(params.get("url"), params.get("username"), params.get("password"));
+        flyway.migrate();
+    }
 }

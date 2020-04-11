@@ -16,7 +16,7 @@ public class LoggingFilter implements Filter {
             "\nRequest {} {} {} HEADERS:[{}] BODY: {}\nResponse {} HEADERS:[{}] BODY: {} ";
     private static final String TEMPLATE_WITH_NO_BODY =
             "\nRequest {} {} {} HEADERS:[{}] \nResponse {} HEADERS:[{}]";
-    private static Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
+    private static final Logger logger = LoggerFactory.getLogger(LoggingFilter.class);
 
     @Override
     public void handle(Request request, Response response) throws Exception {
@@ -26,9 +26,9 @@ public class LoggingFilter implements Filter {
                 h -> response.raw().getHeader(h));
         String template;
         Object[] params;
-        if(logger.isDebugEnabled()) {
+        if (logger.isDebugEnabled()) {
             template = TEMPLATE_WITH_BODY;
-            params = new Object[] {
+            params = new Object[]{
                     request.requestMethod(),
                     request.pathInfo(),
                     request.protocol(),
@@ -40,7 +40,7 @@ public class LoggingFilter implements Filter {
             };
         } else {
             template = TEMPLATE_WITH_NO_BODY;
-            params = new Object[] {
+            params = new Object[]{
                     request.requestMethod(),
                     request.pathInfo(),
                     request.protocol(),

@@ -7,77 +7,81 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-/** Class that holds methods to obtain configuration parameters from the environment. */
+/**
+ * Class that holds methods to obtain configuration parameters from the environment.
+ */
 public class AppSetup {
-  private Map<String, String> env;
+    private final Map<String, String> env;
 
-  public AppSetup() {
-    this.env = System.getenv();
-  }
-
-  public Map<String, String> getParamsFromDbUrl(String url) {
-    Map<String, String> params = new HashMap<>();
-    URI dbUri = null;
-
-    try {
-      dbUri = new URI(url);
-    } catch (URISyntaxException e) {
-      System.out.println("Unable to parse DB URL");
-    }
-    String[] userInfo = dbUri.getUserInfo().split(":");
-    String username = userInfo[0];
-    String password;
-    if (userInfo.length > 1) {
-      password = userInfo[1];
-    } else {
-      password = "";
+    public AppSetup() {
+        this.env = System.getenv();
     }
 
-    String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+    public Map<String, String> getParamsFromDbUrl(String url) {
+        Map<String, String> params = new HashMap<>();
+        URI dbUri = null;
 
-    params.put("url", dbUrl);
-    params.put("username", username);
-    params.put("password", password);
+        try {
+            dbUri = new URI(url);
+        } catch (URISyntaxException e) {
+            System.out.println("Unable to parse DB URL");
+        }
+        String[] userInfo = dbUri.getUserInfo().split(":");
+        String username = userInfo[0];
+        String password;
+        if (userInfo.length > 1) {
+            password = userInfo[1];
+        } else {
+            password = "";
+        }
 
-    return params;
-  }
+        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
-  /** Returns an entity manager factory using the defined environment variables that this class
-   * has access to.
-   * @return EntityManagerFactory
-   */
-  public EntityManagerFactory getEntityManagerFactory() {
-    AppSetup appSetup = new AppSetup();
-    Map<String, String> configOverrides = new HashMap<>();
+        params.put("url", dbUrl);
+        params.put("username", username);
+        params.put("password", password);
 
-    Map<String, String> params = appSetup.getParamsFromDbUrl(getDatabaseURL());
+        return params;
+    }
 
-    configOverrides.put("javax.persistence.jdbc.url", params.get("url"));
-    configOverrides.put("javax.persistence.jdbc.user", params.get("username"));
-    configOverrides.put("javax.persistence.jdbc.password", params.get("password"));
+    /**
+     * Returns an entity manager factory using the defined environment variables that this class
+     * has access to.
+     *
+     * @return EntityManagerFactory
+     */
+    public EntityManagerFactory getEntityManagerFactory() {
+        AppSetup appSetup = new AppSetup();
+        Map<String, String> configOverrides = new HashMap<>();
 
-    return Persistence.createEntityManagerFactory("Appointments-Persistence", configOverrides);
-  }
+        Map<String, String> params = appSetup.getParamsFromDbUrl(getDatabaseURL());
 
-  public int getPortNumber() {
-    String port = env.get("PORT");
+        configOverrides.put("javax.persistence.jdbc.url", params.get("url"));
+        configOverrides.put("javax.persistence.jdbc.user", params.get("username"));
+        configOverrides.put("javax.persistence.jdbc.password", params.get("password"));
 
-    return port != null ? Integer.parseInt(port) : 4567;
-  }
+        return Persistence.createEntityManagerFactory("Appointments-Persistence", configOverrides);
+    }
 
-  public String getDatabaseURL() {
-    return env.get("DATABASE_URL");
-  }
+    public int getPortNumber() {
+        String port = env.get("PORT");
 
-  public String getAccountSid() {
-    return env.get("TWILIO_ACCOUNT_SID");
-  }
+        return port != null ? Integer.parseInt(port) : 4567;
+    }
 
-  public String getAuthToken() {
-    return env.get("TWILIO_AUTH_TOKEN");
-  }
+    public String getDatabaseURL() {
+        return env.get("DATABASE_URL");
+    }
 
-  public String getTwilioPhoneNumber() {
-    return env.get("TWILIO_NUMBER");
-  }
+    public String getAccountSid() {
+        return env.get("TWILIO_ACCOUNT_SID");
+    }
+
+    public String getAuthToken() {
+        return env.get("TWILIO_AUTH_TOKEN");
+    }
+
+    public String getTwilioPhoneNumber() {
+        return env.get("TWILIO_NUMBER");
+    }
 }
