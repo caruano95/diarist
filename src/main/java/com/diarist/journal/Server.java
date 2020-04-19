@@ -48,7 +48,7 @@ public class Server {
          * Send
          */
 
-
+        /*
         Message message = Message.creator(
                 new com.twilio.type.PhoneNumber("whatsapp:" + recipientPhoneNumber),
                 new com.twilio.type.PhoneNumber("whatsapp:" + appSetup.getTwilioPhoneNumber()),
@@ -56,7 +56,7 @@ public class Server {
                 .create();
 
         System.out.println(message.getSid());
-
+        */
 
 
         /**
@@ -74,7 +74,7 @@ public class Server {
             String sender = URLDecoder.decode(req.queryParams("From"), StandardCharsets.UTF_8);
             String senderNumber = sender.substring(sender.indexOf(":") + 1);
 
-            System.out.println(String.format("\n\n Processing a Message from %s:\n%s", senderNumber, messageText));
+            System.out.println(String.format("\n\nProcessing a Message from %s:\n%s\n\n\n\n", senderNumber, messageText));
             return "";
         });
 
@@ -89,7 +89,7 @@ public class Server {
          * Sets the port in which the application will run. Takes the port value from PORT
          * environment variable, if not set, uses Spark default port 4567.
          */
-        port(appSetup.getPortNumber());
+        port(appSetup.getAppPortNumber());
 
         /**
          * Gets the entity manager based on environment variable DATABASE_URL and injects it into
