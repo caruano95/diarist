@@ -4,13 +4,21 @@ import com.diarist.journal.controllers.AppointmentController;
 import com.diarist.journal.models.AppointmentService;
 import com.diarist.journal.util.AppSetup;
 import com.diarist.journal.util.LoggingFilter;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.twiml.MessagingResponse;
+import com.twilio.twiml.messaging.Body;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
+import spark.Request;
 import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
 
 import javax.persistence.EntityManagerFactory;
+
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 
 import static spark.Spark.*;
 
@@ -18,7 +26,63 @@ import static spark.Spark.*;
  * Main application class. The environment is set up here, and all necessary services are run.
  */
 public class Server {
+
     public static void main(String[] args) {
+        //startServer();
+
+        sendWhatsappMessage();
+
+    }
+
+    public static void sendWhatsappMessage(){
+
+        AppSetup appSetup = new AppSetup();
+
+
+        Twilio.init(appSetup.getAccountSid(), appSetup.getAuthToken());
+
+        final String recipientPhoneNumber = "+50259781548";
+
+
+        /**
+         * Send
+         */
+
+        /*
+        Message message = Message.creator(
+                new com.twilio.type.PhoneNumber("whatsapp:" + recipientPhoneNumber),
+                new com.twilio.type.PhoneNumber("whatsapp:" + appSetup.getTwilioPhoneNumber()),
+                "How was your day today?")
+                .create();
+
+        System.out.println(message.getSid());
+        */
+
+
+        /**
+         * Receive (through a webhook to ngrok)
+         * http://8e8bf49f.ngrok.io/new_entry
+         */
+
+
+
+        get("/new_entry", (req, res) -> "Hello there, this reads entries");
+
+
+        post("/new_entry", (req, res) -> {
+            String messageText = URLDecoder.decode(req.queryParams("Body"), StandardCharsets.UTF_8);
+            String sender = URLDecoder.decode(req.queryParams("From"), StandardCharsets.UTF_8);
+            String senderNumber = sender.substring(sender.indexOf(":") + 1);
+
+            System.out.println(String.format("\n\n Processing a Message from %s:\n%s", senderNumber, messageText));
+            return "";
+        });
+
+    }
+
+
+    //public static void main(String[] args) {
+    public static void startServer() {
         AppSetup appSetup = new AppSetup();
 
         /**

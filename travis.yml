@@ -11,4 +11,4 @@ env:
     - TWILIO_NUMBER=your_twilio_number
 before_script:
   - psql -c 'create database appointments;' -U postgres
-  - mvn exec:java -Dexec.mainClass="com.twilio.appointmentreminders.Migrator"
+  - mvn exec:java -Dexec.mainClass="com.diarist.journal.Migrator"
