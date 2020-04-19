@@ -48,7 +48,7 @@ public class Server {
          * Send
          */
 
-        /*
+
         Message message = Message.creator(
                 new com.twilio.type.PhoneNumber("whatsapp:" + recipientPhoneNumber),
                 new com.twilio.type.PhoneNumber("whatsapp:" + appSetup.getTwilioPhoneNumber()),
@@ -56,7 +56,7 @@ public class Server {
                 .create();
 
         System.out.println(message.getSid());
-        */
+
 
 
         /**

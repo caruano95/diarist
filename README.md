@@ -1,7 +1,9 @@
 # diarist
 Journaling made simple
 
+#Info
+Inspired by the Appointments app example
+https://www.twilio.com/docs/sms/tutorials/appointment-reminders-java-spark
 
 #Setup:
-Needs a postgres instance running. With docker:
-`docker run --name diarist-postgres -e POSTGRES_USER=diarist POSTGRES_PASSWORD=journal POSTGRES_DB=diarist -d postgres`
+Needs a postgres instance running
