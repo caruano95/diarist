@@ -58,10 +58,10 @@ public class Server {
 
         path("/api", () -> {
             path("/diary", () -> {
-                get("/", journalController.getList);
-                get("/:entry", journalController.get);
-                post("/", journalController.create);
-                delete("/:entry", journalController.delete);
+                get("", journalController.getList);
+                //get("/:entry", journalController.get);
+                post("", journalController.create);
+                //delete("/:entry", journalController.delete);
             });
             path("/adapter", () -> {
                 post("/whatsapp", whatsappController.newMessage);

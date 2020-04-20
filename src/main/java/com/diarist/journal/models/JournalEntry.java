@@ -1,5 +1,6 @@
 package com.diarist.journal.models;
 
+import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -19,10 +20,12 @@ public class JournalEntry {
     private String userId;
 
     @Column
+    @Expose
     private String content;
 
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
+    @Expose
     private Date created;
 
     @PrePersist
@@ -36,5 +39,15 @@ public class JournalEntry {
     }
 
     public JournalEntry() {
+    }
+
+    @Override
+    public String toString() {
+        return "JournalEntry{" +
+                "id=" + id +
+                ", userId='" + userId + '\'' +
+                ", content='" + content + '\'' +
+                ", created=" + created +
+                '}';
     }
 }
