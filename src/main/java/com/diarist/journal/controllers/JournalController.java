@@ -38,15 +38,6 @@ public class JournalController {
         return gson.toJson(journal);
     };
 
-
-    public Route get = (request, response) -> {
-        String entry = request.queryParams("entry");
-        System.out.println( String.format("Obtaining Journal entry: %s", entry) );
-
-        return "";
-    };
-
-
     public Route create = (request, response) -> {
         JsonObject jsonObject = JsonParser.parseString(request.body()).getAsJsonObject();
 
@@ -58,14 +49,5 @@ public class JournalController {
 
         return "";
     };
-
-
-    public Route delete = (request, response) -> {
-        String entry = request.queryParams("entry");
-        System.out.println( String.format("Deleting a Journal entry: %s", entry) );
-
-        return "";
-    };
-
 
 }

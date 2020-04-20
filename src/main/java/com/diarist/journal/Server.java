@@ -2,7 +2,9 @@ package com.diarist.journal;
 
 import com.diarist.journal.controllers.AppointmentController;
 import com.diarist.journal.controllers.JournalController;
+import com.diarist.journal.controllers.WebappController;
 import com.diarist.journal.controllers.WhatsappController;
+import com.diarist.journal.models.Appointment;
 import com.diarist.journal.models.AppointmentService;
 import com.diarist.journal.models.JournalService;
 import com.diarist.journal.util.AppSetup;
@@ -17,14 +19,17 @@ import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import spark.Request;
-import spark.Spark;
+import spark.*;
 import spark.template.mustache.MustacheTemplateEngine;
 
 import javax.persistence.EntityManagerFactory;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import static spark.Spark.*;
 
@@ -59,9 +64,7 @@ public class Server {
         path("/api", () -> {
             path("/diary", () -> {
                 get("", journalController.getList);
-                //get("/:entry", journalController.get);
                 post("", journalController.create);
-                //delete("/:entry", journalController.delete);
             });
             path("/adapter", () -> {
                 post("/whatsapp", whatsappController.newMessage);
@@ -69,6 +72,12 @@ public class Server {
         });
 
 
+        /**
+         * Frontend app
+         */
+
+        WebappController webappController = new WebappController(journalService);
+        get("/", webappController.journalEntries, new MustacheTemplateEngine());
 
     }
 
@@ -103,14 +112,6 @@ public class Server {
         }
         */
 
-        /** Injects AppointmentService and Scheduler into the controller. */
-        //AppointmentController controller = new AppointmentController(service, scheduler);
-
-        /**
-         * Defines all url paths for the application and assigns a controller method for each.
-         * If the route renders a page, the templating engine must be specified, and the controller
-         * should return the appropriate Route object.
-         */
         /*
         get("/", controller.index, new MustacheTemplateEngine());
         get("/new", controller.renderCreatePage, new MustacheTemplateEngine());

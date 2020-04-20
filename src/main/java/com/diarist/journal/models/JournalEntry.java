@@ -14,19 +14,19 @@ public class JournalEntry {
     @Id
     @GeneratedValue(strategy = IDENTITY)
     @Column
-    private Long id;
+    public Long id;
 
     @Column(name = "user_id")
-    private String userId;
+    public String userId;
 
     @Column
     @Expose
-    private String content;
+    public String content;
 
     @Temporal(TemporalType.DATE)
     @Column(nullable = false)
     @Expose
-    private Date created;
+    public Date created;
 
     @PrePersist
     protected void onCreate() {
