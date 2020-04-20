@@ -7,10 +7,11 @@
             This unit manages journal entries and notification schedules
         </description>
         <class>com.diarist.journal.models.Appointment</class>
+        <class>com.diarist.journal.models.JournalEntry</class>
         <properties>
             <property name="eclipselink.target-database" value="MySQL"/>
             <property name="javax.persistence.jdbc.url" value="change_value"/>
-            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
             <property name="javax.persistence.jdbc.user" value="change_value"/>
             <property name="javax.persistence.jdbc.password" value="change_value"/>
             <property name="eclipselink.logging.level" value="ALL"/>

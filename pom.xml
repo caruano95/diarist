@@ -4,9 +4,9 @@
 
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.diarist.journal</groupId>
-    <artifactId>journal-server</artifactId>
+    <artifactId>diarist-app</artifactId>
     <version>1.0</version>
-    <name>Journal Server</name>
+    <name>Diarist app</name>
     <description>
         An service to handle Journal entries
     </description>

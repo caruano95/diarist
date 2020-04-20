@@ -1,8 +1,12 @@
 package com.diarist.journal;
 
 import com.diarist.journal.controllers.AppointmentController;
+import com.diarist.journal.controllers.JournalController;
+import com.diarist.journal.controllers.WhatsappController;
 import com.diarist.journal.models.AppointmentService;
+import com.diarist.journal.models.JournalService;
 import com.diarist.journal.util.AppSetup;
+import com.diarist.journal.util.AppointmentScheduler;
 import com.diarist.journal.util.LoggingFilter;
 import com.twilio.Twilio;
 import com.twilio.rest.api.v2010.account.Message;
@@ -11,6 +15,8 @@ import com.twilio.twiml.messaging.Body;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.quartz.impl.StdSchedulerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import spark.Request;
 import spark.Spark;
 import spark.template.mustache.MustacheTemplateEngine;
@@ -27,76 +33,12 @@ import static spark.Spark.*;
  */
 public class Server {
 
+    private static final Logger logger = LoggerFactory.getLogger(Server.class);
+
     public static void main(String[] args) {
-        //startServer();
-
-        sendWhatsappMessage();
-
-    }
-
-    public static void sendWhatsappMessage(){
-
         AppSetup appSetup = new AppSetup();
-
-
-        Twilio.init(appSetup.getAccountSid(), appSetup.getAuthToken());
-
-        final String recipientPhoneNumber = "+50259781548";
-
-
-        /**
-         * Send
-         */
-
-        /*
-        Message message = Message.creator(
-                new com.twilio.type.PhoneNumber("whatsapp:" + recipientPhoneNumber),
-                new com.twilio.type.PhoneNumber("whatsapp:" + appSetup.getTwilioPhoneNumber()),
-                "How was your day today?")
-                .create();
-
-        System.out.println(message.getSid());
-        */
-
-
-        /**
-         * Receive (through a webhook to ngrok)
-         * http://8e8bf49f.ngrok.io/new_entry
-         */
-
-
-
-        get("/new_entry", (req, res) -> "Hello there, this reads entries");
-
-
-        post("/new_entry", (req, res) -> {
-            String messageText = URLDecoder.decode(req.queryParams("Body"), StandardCharsets.UTF_8);
-            String sender = URLDecoder.decode(req.queryParams("From"), StandardCharsets.UTF_8);
-            String senderNumber = sender.substring(sender.indexOf(":") + 1);
-
-            System.out.println(String.format("\n\nProcessing a Message from %s:\n%s\n\n\n\n", senderNumber, messageText));
-            return "";
-        });
-
-    }
-
-
-    //public static void main(String[] args) {
-    public static void startServer() {
-        AppSetup appSetup = new AppSetup();
-
-        /**
-         * Sets the port in which the application will run. Takes the port value from PORT
-         * environment variable, if not set, uses Spark default port 4567.
-         */
         port(appSetup.getAppPortNumber());
-
-        /**
-         * Gets the entity manager based on environment variable DATABASE_URL and injects it into
-         * AppointmentService which handles all DB operations.
-         */
-        EntityManagerFactory factory = appSetup.getEntityManagerFactory();
-        AppointmentService service = new AppointmentService(factory.createEntityManager());
+        Twilio.init(appSetup.getAccountSid(), appSetup.getAuthToken());
 
         /**
          * Specifies the directory within resources that will be publicly available when the
@@ -104,7 +46,52 @@ public class Server {
          */
         Spark.staticFileLocation("/public");
 
+        /**
+         * Gets the entity manager based on environment variable DATABASE_URL and injects it into
+         * JournalService which handles DB operations.
+         */
+        EntityManagerFactory factory = appSetup.getEntityManagerFactory();
+        JournalService journalService = new JournalService(factory.createEntityManager());
+
+        JournalController journalController = new JournalController(journalService);
+        WhatsappController whatsappController = new WhatsappController(journalService);
+
+        path("/api", () -> {
+            path("/diary", () -> {
+                get("/", journalController.getList);
+                get("/:entry", journalController.get);
+                post("/", journalController.create);
+                delete("/:entry", journalController.delete);
+            });
+            path("/adapter", () -> {
+                post("/whatsapp", whatsappController.newMessage);
+            });
+        });
+
+
+
+    }
+
+    public static void sendWhatsappMessage(){
+        /**
+         * Send
+         */
+        /*
+        final String recipientPhoneNumber = "+50259781548";
+        Message message = Message.creator(
+                new com.twilio.type.PhoneNumber("whatsapp:" + recipientPhoneNumber),
+                new com.twilio.type.PhoneNumber("whatsapp:" + appSetup.getTwilioPhoneNumber()),
+                "How was your day today?")
+                .create();
+        System.out.println(message.getSid());
+        */
+    }
+
+    public static void startServer() {
+
+
         /** Creates a new instance of Quartz Scheduler and starts it. */
+        /*
         Scheduler scheduler = null;
         try {
             scheduler = StdSchedulerFactory.getDefaultScheduler();
@@ -114,20 +101,24 @@ public class Server {
         } catch (SchedulerException se) {
             System.out.println("Unable to start scheduler service");
         }
+        */
 
         /** Injects AppointmentService and Scheduler into the controller. */
-        AppointmentController controller = new AppointmentController(service, scheduler);
+        //AppointmentController controller = new AppointmentController(service, scheduler);
 
         /**
          * Defines all url paths for the application and assigns a controller method for each.
          * If the route renders a page, the templating engine must be specified, and the controller
          * should return the appropriate Route object.
          */
+        /*
         get("/", controller.index, new MustacheTemplateEngine());
         get("/new", controller.renderCreatePage, new MustacheTemplateEngine());
         post("/create", controller.create, new MustacheTemplateEngine());
         post("/delete", controller.delete);
 
         afterAfter(new LoggingFilter());
+        */
     }
+
 }
