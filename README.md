@@ -1,5 +1,5 @@
 # diarist
-Journaling made simple.
+Journaling made simple. 
 
 How it works:
 1. You register your number and get a whatsapp message from the app asking you `How was your day today?`
@@ -16,7 +16,7 @@ This app is based on the [Appointment reminders](https://www.twilio.com/docs/sms
 It requires a MySQL instance up and running to store all the journal entries. 
 
 
-I also wrote a document [here](https://github.com/caruano95/diarist/blob/master/docs/diarist.md) sharing some inspirations for the app, my process for developing it and some ideas bout the future.
+I also wrote a document [here](diarist.md) sharing some inspirations for the app, my process for developing it and some ideas bout the future.
 
 
 ## How to 
