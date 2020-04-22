@@ -4,10 +4,8 @@ Journaling made simple.
 How it works:
 1. You register your number and get a whatsapp message from the app asking you `How was your day today?`
 1. You reply to the text with all your adventures
-1. That's it !
-
-Once you feel like reading some of your old entries you can go to the web app or consume from the rest API to get your messages formatted and timestamped.
-It will also continue reminding you every day so that you don't miss anything 
+1. That's it ! Once you feel like reading some of your old entries you can go to the web app or consume from the rest API to get your messages formatted and time-stamped.
+It will also continue to send you a text every day so that you don't forget to update it.
 
 
 
