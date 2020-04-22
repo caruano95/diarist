@@ -1,4 +1,4 @@
-# diarist
+# Diarist
 Journaling made simple. 
 
 How it works:
@@ -16,7 +16,7 @@ This app is based on the [Appointment reminders](https://www.twilio.com/docs/sms
 It requires a MySQL instance up and running to store all the journal entries. 
 
 
-I also wrote a document [here](diarist.md) sharing some inspirations for the app, my process for developing it and some ideas bout the future.
+I also wrote a document [here](docs/diarist.md) sharing some inspirations for the app, my process for developing it and some ideas bout the future.
 
 
 ## How to 
