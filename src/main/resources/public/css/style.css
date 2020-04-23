@@ -1,0 +1,13 @@
+body {
+  font-family: 'Neucha', cursive;
+  min-height: 75rem;
+  padding-top: 4.5rem;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: 'Neucha', cursive;
+}
+p {
+    font-size: 18px;
+    font-family: 'Neucha', cursive;
+}

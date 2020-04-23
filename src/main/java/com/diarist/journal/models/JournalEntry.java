@@ -33,12 +33,12 @@ public class JournalEntry {
         created = new Date();
     }
 
+    public JournalEntry() {
+    }
+
     public JournalEntry(String user, String content) {
         this.userId = user;
         this.content = content;
-    }
-
-    public JournalEntry() {
     }
 
     @Override

@@ -1,0 +1,24 @@
+{{! journal.mustache }}
+{{<base}}
+{{$header}}
+{{<header}}
+{{$title}}Diarist App{{/title}}
+{{/header}}
+{{/header}}
+
+{{$content}}
+    {{#journal}}
+        <div class="card border-primary mb-3" style="max-width: 20rem;">
+            <div class="card-header">{{created}}</div>
+            <div class="card-body">
+                <p class="card-text">{{content}}</p>
+            </div>
+        </div>
+    {{/journal}}
+    {{^journal}}
+        <div class="well">
+            There are no diary records for this number.
+        </div>
+    {{/journal}}
+{{/content}}
+{{/base}}

@@ -46,6 +46,12 @@ public class Server {
         Twilio.init(appSetup.getAccountSid(), appSetup.getAuthToken());
 
         /**
+         * Sets the port in which the application will run. Takes the port value from PORT
+         * environment variable, if not set, uses default port 4567.
+         */
+        port(appSetup.getAppPortNumber());
+
+        /**
          * Specifies the directory within resources that will be publicly available when the
          * application is running. Place static web files in this directory (JS, CSS).
          */
@@ -77,7 +83,9 @@ public class Server {
          */
 
         WebappController webappController = new WebappController(journalService);
-        get("/", webappController.journalEntries, new MustacheTemplateEngine());
+        get("/", webappController.index, new MustacheTemplateEngine());
+        get("/get_started", webappController.getStarted, new MustacheTemplateEngine());
+        get("/my_diary", webappController.myDiary, new MustacheTemplateEngine());
 
     }
 

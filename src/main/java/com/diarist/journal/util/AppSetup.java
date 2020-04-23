@@ -25,7 +25,7 @@ public class AppSetup {
         AppSetup appSetup = new AppSetup();
 
         Map<String, String> configOverrides = new HashMap<>();
-        configOverrides.put("javax.persistence.jdbc.url", getDatabaseUrl());
+        configOverrides.put("javax.persistence.jdbc.url", appSetup.getDatabaseUrl());
         configOverrides.put("javax.persistence.jdbc.user", appSetup.getDatabaseUser());
         configOverrides.put("javax.persistence.jdbc.password", appSetup.getDatabasePass());
 
@@ -72,7 +72,7 @@ public class AppSetup {
     }
 
     public int getAppPortNumber() {
-        String port = env.get("PORT");
+        String port = env.get("APP_PORT");
         return port != null ? Integer.parseInt(port) : 4567;
     }
 }

@@ -52,7 +52,7 @@ public class AppointmentController {
         List<Appointment> appointments = service.findAll();
         map.put("appointments", appointments);
 
-        return new ModelAndView(map, "index.mustache");
+        return new ModelAndView(map, "journal.mustache");
     };
 
     public Route delete = (request, response) -> {
