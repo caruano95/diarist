@@ -22,7 +22,7 @@ public class JournalService {
 
     @SuppressWarnings("unchecked")
     public List<JournalEntry> getJournal(String user_id) {
-        String queryString = "SELECT e FROM JournalEntry e WHERE e.userId = :user_id";
+        String queryString = "SELECT e FROM JournalEntry e WHERE e.userId = :user_id ORDER BY e.created DESC";
         TypedQuery<JournalEntry> query = entityManager.createQuery(queryString, JournalEntry.class);
         query.setParameter("user_id", user_id);
         return query.getResultList();

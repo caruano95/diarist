@@ -3,6 +3,7 @@ package com.diarist.journal.models;
 import com.google.gson.annotations.Expose;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import static javax.persistence.GenerationType.IDENTITY;
@@ -39,6 +40,11 @@ public class JournalEntry {
     public JournalEntry(String user, String content) {
         this.userId = user;
         this.content = content;
+    }
+
+    public String getCreatedAsDate(){
+        SimpleDateFormat formatter = new SimpleDateFormat("MMM dd");
+        return formatter.format(created);
     }
 
     @Override

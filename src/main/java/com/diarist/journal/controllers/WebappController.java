@@ -42,7 +42,7 @@ public class WebappController {
         List<JournalEntry> journal = journalService.getJournal(userId);
 
 
-        map.put("journal", journal);
+        map.put("journal1", journal);
         return new ModelAndView(map, "journal.mustache");
     };
 
