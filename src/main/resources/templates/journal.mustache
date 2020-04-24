@@ -8,15 +8,19 @@
 
 {{$content}}
     {{#journal1}}
-        <div class="card border-primary my-3" style="max-width: 40rem;">
-            <div class="card-header">{{getCreatedAsDate}}</div>
+        <div class="card border-primary my-4 mx-auto" style="max-width: 40rem;">
+            <div class="card-header">
+                <h3>
+                    {{getCreatedAsDate}}
+                </h3>
+            </div>
             <div class="card-body">
                 <p class="card-text text-justify">{{content}}</p>
             </div>
         </div>
     {{/journal1}}
     {{^journal1}}
-        <div class="well">
+        <div class="well" mx-auto>
             There are no diary records for this number.
         </div>
     {{/journal1}}

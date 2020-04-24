@@ -83,10 +83,10 @@ public class Server {
          */
 
         WebappController webappController = new WebappController(journalService);
-        get("/", webappController.index, new MustacheTemplateEngine());
+        get("/", webappController.myDiary, new MustacheTemplateEngine());
         get("/get_started", webappController.getStarted, new MustacheTemplateEngine());
         get("/my_diary", webappController.myDiary, new MustacheTemplateEngine());
-
+        get("/about", webappController.about, new MustacheTemplateEngine());
     }
 
     public static void sendWhatsappMessage(){

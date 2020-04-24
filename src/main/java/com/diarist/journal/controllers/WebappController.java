@@ -21,16 +21,15 @@ public class WebappController {
         this.journalService = journalService;
     }
 
-    public TemplateViewRoute index = (request, response) -> {
+    public TemplateViewRoute about = (request, response) -> {
         Map map = new HashMap();
-
-        return new ModelAndView(map, "journal.mustache");
+        return new ModelAndView(map, "about.mustache");
     };
 
     public TemplateViewRoute getStarted = (request, response) -> {
         Map map = new HashMap();
 
-        return new ModelAndView(map, "journal.mustache");
+        return new ModelAndView(map, "get_started.mustache");
     };
 
 
