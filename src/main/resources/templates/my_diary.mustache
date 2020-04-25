@@ -1,0 +1,22 @@
+{{! journal.mustache }}
+{{<base}}
+{{$header}}
+{{<header}}
+{{$title}}Diarist App{{/title}}
+{{/header}}
+{{/header}}
+
+{{$content}}
+    <div class="my-3 mx-auto" style="max-width: 20rem;">
+        <form name="formRegister" id="formRegister" method="GET" action="journal" >
+            <fieldset>
+                <div class="form-group">
+                    <label for="phoneNumber">Phone number</label>
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number...">
+                </div>
+                <button type="submit" class="btn btn-primary">Open</button>
+            </fieldset>
+        </form>
+    </div>
+{{/content}}
+{{/base}}
