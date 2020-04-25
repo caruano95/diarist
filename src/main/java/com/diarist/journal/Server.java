@@ -72,8 +72,7 @@ public class Server {
         get("/welcome", webappController.welcome);
 
         get("/log_in", webappController.journalLogin);
-        post("/journal", webappController.journalForm);
-        get("/bad_login", webappController.journalLoginRetry);
+        post("/log_in", webappController.journalLoginProcess);
         get("/journal", webappController.journal);
 
 

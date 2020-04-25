@@ -51,26 +51,27 @@ public class WebappController {
      * Login and open journal
      */
 
-    public Route journalLogin = (request, response) -> render( "my_diary_login.mustache");
+    public Route journalLogin = (request, response) -> render(Collections.singletonMap("badLogin", false), "my_diary_login.mustache");
 
-    public Route journalLoginRetry = (request, response) -> render(Collections.singletonMap("badLogin", true), "my_diary_login.mustache");
-
-    public Route journalForm = (request, response) -> {
+    public Route journalLoginProcess = (request, response) -> {
         String username = URLDecoder.decode(request.queryParams("username"), StandardCharsets.UTF_8);
         String passcode = URLDecoder.decode(request.queryParams("passcode"), StandardCharsets.UTF_8);
 
 
         /*
         Checking for valid credentials
+
          */
         if (username.equals("error")) {
-            response.redirect("/bad_login");
+            return render(Collections.singletonMap("badLogin", true), "my_diary_login.mustache");
         }else {
             System.out.println(String.format("\n\n\nLoading the journal for the following user:\nusername: %s\npasscode: %s\n\n\n", username, passcode));
+            /*
+             * Set session / cookie
+             */
             response.redirect("/journal");
+            return response;
         }
-
-        return response;
     };
 
     public Route journal = (request, response) -> {
@@ -83,10 +84,6 @@ public class WebappController {
         map.put("hideNavbar", true);
         return render(map, "journal.mustache");
     };
-
-
-    public Route journalError = (request, response) -> render("welcome.mustache");
-
 
     /*
      * More info
