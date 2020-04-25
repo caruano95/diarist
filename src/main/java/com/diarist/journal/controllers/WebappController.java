@@ -4,7 +4,6 @@ import com.diarist.journal.models.JournalEntry;
 import com.diarist.journal.models.JournalService;
 import spark.ModelAndView;
 import spark.Route;
-import spark.TemplateViewRoute;
 import spark.template.mustache.MustacheTemplateEngine;
 
 import java.net.URLDecoder;
@@ -34,33 +33,31 @@ public class WebappController {
     public Route getStarted = (request, response) -> render("get_started.mustache");
 
     public Route registerForm = (request, response) -> {
+        String username = URLDecoder.decode(request.queryParams("username"), StandardCharsets.UTF_8);
         String inputPhone = URLDecoder.decode(request.queryParams("phoneNumber"), StandardCharsets.UTF_8);
-        String optionPrompt = URLDecoder.decode(request.queryParams("optionPrompt"), StandardCharsets.UTF_8);
+        String passcode = URLDecoder.decode(request.queryParams("passcode"), StandardCharsets.UTF_8);
 
-        System.out.println(String.format("\n\n\nRegistering new user:\ninputPhone: %s\noptionPrompt: %s\n\n\n", inputPhone, optionPrompt));
+        System.out.println(String.format("\n\n\nRegistering new user:\nusername: %s\ninputPhone: %s\npasscode: %s\n\n\n", username, inputPhone, passcode));
 
-
-
-
-
-        response.redirect("/");
-        return response;
+        return render("welcome.mustache");
     };
 
     /*
      * Login and open journal
      */
 
-    public Route myDiaryLogin = (request, response) -> render( "my_diary_login.mustache");
+    public Route journalLogin = (request, response) -> render( "my_diary_login.mustache");
 
 
     public Route journal = (request, response) -> {
-        System.out.println("\naskfjnasjfn"+request.queryParams("phoneNumber"));
+        String username = URLDecoder.decode(request.queryParams("username"), StandardCharsets.UTF_8);
+        String passcode = URLDecoder.decode(request.queryParams("passcode"), StandardCharsets.UTF_8);
 
-        Map map = new HashMap();
+        System.out.println(String.format("\n\n\nLoading the journal for the following user:\nusername: %s\npasscode: %s\n\n\n", username, passcode));
+
 
         String userId = "+12345678";
-
+        Map map = new HashMap();
         List<JournalEntry> journal = journalService.getJournal(userId);
 
 

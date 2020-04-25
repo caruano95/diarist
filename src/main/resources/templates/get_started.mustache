@@ -8,9 +8,13 @@
 
 {{$content}}
     <div class="my-3 mx-auto" style="max-width: 20rem;">
-        <form name="formRegister" id="formRegister" method="POST" action="registerForm" >
+        <form name="formRegister" id="formRegister" method="POST" action="welcome" >
             <fieldset>
                 <legend>Create a free account</legend>
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameDisclaimer" placeholder="Your username...">
+                </div>
                 <div class="form-group">
                     <label for="phoneNumber">Phone number</label>
                     <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" aria-describedby="phoneDisclaimer" placeholder="+1 (541) 7543010...">

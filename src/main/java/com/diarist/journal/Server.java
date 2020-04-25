@@ -66,11 +66,14 @@ public class Server {
 
         WebappController webappController = new WebappController(journalService);
         get("/", webappController.onboarding);
+
         get("/get_started", webappController.getStarted);
-        get("/my_diary", webappController.myDiaryLogin);
-        get("/journal", webappController.journal);
+        post("/welcome", webappController.registerForm);
+
+        get("/log_in", webappController.journalLogin);
+        post("/journal", webappController.journal);
+
         get("/about", webappController.about);
-        post("/registerForm", webappController.registerForm);
     }
 
     public static void sendWhatsappMessage(){

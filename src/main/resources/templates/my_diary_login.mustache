@@ -8,11 +8,12 @@
 
 {{$content}}
     <div class="my-3 mx-auto" style="max-width: 20rem;">
-        <form name="formRegister" id="formRegister" method="GET" action="journal" >
+        <form name="formRegister" id="formRegister" method="POST" action="journal" >
+            <legend>Open your journal</legend>
             <fieldset>
                 <div class="form-group">
-                    <label for="phoneNumber">Phone number</label>
-                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="+1 (541) 7543010...">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" placeholder="Your username...">
                 </div>
                 <div class="form-group">
                     <label for="passcode">Passcode</label>
