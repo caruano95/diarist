@@ -8,6 +8,7 @@ import spark.template.mustache.MustacheTemplateEngine;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +40,12 @@ public class WebappController {
 
         System.out.println(String.format("\n\n\nRegistering new user:\nusername: %s\ninputPhone: %s\npasscode: %s\n\n\n", username, inputPhone, passcode));
 
-        return render("welcome.mustache");
+        response.redirect("/welcome");
+        return response;
     };
+
+    public Route welcome = (request, response) -> render("welcome.mustache");
+
 
     /*
      * Login and open journal
@@ -48,22 +53,39 @@ public class WebappController {
 
     public Route journalLogin = (request, response) -> render( "my_diary_login.mustache");
 
+    public Route journalLoginRetry = (request, response) -> render(Collections.singletonMap("badLogin", true), "my_diary_login.mustache");
 
-    public Route journal = (request, response) -> {
+    public Route journalForm = (request, response) -> {
         String username = URLDecoder.decode(request.queryParams("username"), StandardCharsets.UTF_8);
         String passcode = URLDecoder.decode(request.queryParams("passcode"), StandardCharsets.UTF_8);
 
-        System.out.println(String.format("\n\n\nLoading the journal for the following user:\nusername: %s\npasscode: %s\n\n\n", username, passcode));
 
+        /*
+        Checking for valid credentials
+         */
+        if (username.equals("error")) {
+            response.redirect("/bad_login");
+        }else {
+            System.out.println(String.format("\n\n\nLoading the journal for the following user:\nusername: %s\npasscode: %s\n\n\n", username, passcode));
+            response.redirect("/journal");
+        }
 
+        return response;
+    };
+
+    public Route journal = (request, response) -> {
         String userId = "+12345678";
         Map map = new HashMap();
         List<JournalEntry> journal = journalService.getJournal(userId);
 
 
-        map.put("journal1", journal);
+        map.put("journalEntries", journal);
+        map.put("hideNavbar", true);
         return render(map, "journal.mustache");
     };
+
+
+    public Route journalError = (request, response) -> render("welcome.mustache");
 
 
     /*
@@ -83,5 +105,4 @@ public class WebappController {
         Map<String, Object> map = new HashMap<>();
         return render(map, templatePath);
     }
-
 }

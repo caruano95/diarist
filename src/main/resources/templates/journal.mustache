@@ -3,12 +3,12 @@
 {{<base}}
 {{$header}}
 {{<header}}
-{{$title}}Diarist App{{/title}}
+{{$title}}My journal{{/title}}
 {{/header}}
 {{/header}}
 
 {{$content}}
-    {{#journal1}}
+    {{#journalEntries}}
         <div class="card border-primary my-4 mx-auto" style="max-width: 40rem;">
             <div class="card-header">
                 <h3>
@@ -19,11 +19,11 @@
                 <p class="card-text text-justify">{{content}}</p>
             </div>
         </div>
-    {{/journal1}}
-    {{^journal1}}
+    {{/journalEntries}}
+    {{^journalEntries}}
         <div class="well" mx-auto>
             There are no diary records for this number.
         </div>
-    {{/journal1}}
+    {{/journalEntries}}
 {{/content}}
 {{/base}}

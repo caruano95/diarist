@@ -7,6 +7,12 @@
 {{/header}}
 
 {{$content}}
+    {{#badLogin}}
+        <div class="alert alert-dismissible alert-danger my-3 mx-auto text-center" style="max-width: 30rem;">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Invalid login.</strong> Please try again.
+        </div>
+    {{/badLogin}}
     <div class="my-3 mx-auto" style="max-width: 20rem;">
         <form name="formRegister" id="formRegister" method="POST" action="journal" >
             <legend>Open your journal</legend>

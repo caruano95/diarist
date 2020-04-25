@@ -69,9 +69,13 @@ public class Server {
 
         get("/get_started", webappController.getStarted);
         post("/welcome", webappController.registerForm);
+        get("/welcome", webappController.welcome);
 
         get("/log_in", webappController.journalLogin);
-        post("/journal", webappController.journal);
+        post("/journal", webappController.journalForm);
+        get("/bad_login", webappController.journalLoginRetry);
+        get("/journal", webappController.journal);
+
 
         get("/about", webappController.about);
     }
