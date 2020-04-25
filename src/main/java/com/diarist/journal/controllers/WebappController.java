@@ -5,6 +5,7 @@ import com.diarist.journal.models.JournalService;
 import spark.ModelAndView;
 import spark.Route;
 import spark.TemplateViewRoute;
+import spark.template.mustache.MustacheTemplateEngine;
 
 import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
@@ -24,41 +25,16 @@ public class WebappController {
         this.journalService = journalService;
     }
 
-    public TemplateViewRoute about = (request, response) -> {
-        Map map = new HashMap();
-        return new ModelAndView(map, "about.mustache");
-    };
-
-    public TemplateViewRoute getStarted = (request, response) -> {
-        Map map = new HashMap();
-
-        return new ModelAndView(map, "get_started.mustache");
-    };
+    public Route onboarding = (request, response) -> render("onboarding.mustache");
 
 
-    public TemplateViewRoute myDiary = (request, response) -> {
-        Map map = new HashMap();
-
-        return new ModelAndView(map, "my_diary.mustache");
-    };
-
-
-    public TemplateViewRoute journal = (request, response) -> {
-        System.out.println("\naskfjnasjfn"+request.queryParams("phoneNumber"));
-
-        Map map = new HashMap();
-
-        String userId = "+12345678";
-
-        List<JournalEntry> journal = journalService.getJournal(userId);
-
-
-        map.put("journal1", journal);
-        return new ModelAndView(map, "journal.mustache");
-    };
+    /*
+     * Registration
+     */
+    public Route getStarted = (request, response) -> render("get_started.mustache");
 
     public Route registerForm = (request, response) -> {
-        String inputPhone = URLDecoder.decode(request.queryParams("inputPhone"), StandardCharsets.UTF_8);
+        String inputPhone = URLDecoder.decode(request.queryParams("phoneNumber"), StandardCharsets.UTF_8);
         String optionPrompt = URLDecoder.decode(request.queryParams("optionPrompt"), StandardCharsets.UTF_8);
 
         System.out.println(String.format("\n\n\nRegistering new user:\ninputPhone: %s\noptionPrompt: %s\n\n\n", inputPhone, optionPrompt));
@@ -71,7 +47,44 @@ public class WebappController {
         return response;
     };
 
+    /*
+     * Login and open journal
+     */
+
+    public Route myDiaryLogin = (request, response) -> render( "my_diary_login.mustache");
 
 
+    public Route journal = (request, response) -> {
+        System.out.println("\naskfjnasjfn"+request.queryParams("phoneNumber"));
+
+        Map map = new HashMap();
+
+        String userId = "+12345678";
+
+        List<JournalEntry> journal = journalService.getJournal(userId);
+
+
+        map.put("journal1", journal);
+        return render(map, "journal.mustache");
+    };
+
+
+    /*
+     * More info
+     */
+
+    public Route about = (request, response) -> render("about.mustache");
+
+    /*
+     * Utilities
+     */
+    public static String render(Map<String, Object> model, String templatePath) {
+        return new MustacheTemplateEngine().render(new ModelAndView(model, templatePath));
+    }
+
+    public static String render(String templatePath) {
+        Map<String, Object> map = new HashMap<>();
+        return render(map, templatePath);
+    }
 
 }

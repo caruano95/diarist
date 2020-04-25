@@ -1,35 +1,17 @@
 package com.diarist.journal;
 
-import com.diarist.journal.controllers.AppointmentController;
 import com.diarist.journal.controllers.JournalController;
 import com.diarist.journal.controllers.WebappController;
 import com.diarist.journal.controllers.WhatsappController;
-import com.diarist.journal.models.Appointment;
-import com.diarist.journal.models.AppointmentService;
 import com.diarist.journal.models.JournalService;
 import com.diarist.journal.util.AppSetup;
-import com.diarist.journal.util.AppointmentScheduler;
-import com.diarist.journal.util.LoggingFilter;
 import com.twilio.Twilio;
-import com.twilio.rest.api.v2010.account.Message;
-import com.twilio.twiml.MessagingResponse;
-import com.twilio.twiml.messaging.Body;
-import org.quartz.Scheduler;
-import org.quartz.SchedulerException;
-import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.*;
 import spark.template.mustache.MustacheTemplateEngine;
 
 import javax.persistence.EntityManagerFactory;
-
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import static spark.Spark.*;
 
@@ -83,11 +65,11 @@ public class Server {
          */
 
         WebappController webappController = new WebappController(journalService);
-        get("/", webappController.myDiary, new MustacheTemplateEngine());
-        get("/get_started", webappController.getStarted, new MustacheTemplateEngine());
-        get("/my_diary", webappController.myDiary, new MustacheTemplateEngine());
-        get("/journal", webappController.journal, new MustacheTemplateEngine());
-        get("/about", webappController.about, new MustacheTemplateEngine());
+        get("/", webappController.onboarding);
+        get("/get_started", webappController.getStarted);
+        get("/my_diary", webappController.myDiaryLogin);
+        get("/journal", webappController.journal);
+        get("/about", webappController.about);
         post("/registerForm", webappController.registerForm);
     }
 

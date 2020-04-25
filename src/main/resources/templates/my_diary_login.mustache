@@ -1,8 +1,8 @@
-{{! journal.mustache }}
+{{! my_diary_login.mustache }}
 {{<base}}
 {{$header}}
 {{<header}}
-{{$title}}Diarist App{{/title}}
+{{$title}}Log in{{/title}}
 {{/header}}
 {{/header}}
 
@@ -12,7 +12,11 @@
             <fieldset>
                 <div class="form-group">
                     <label for="phoneNumber">Phone number</label>
-                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number...">
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="+1 (541) 7543010...">
+                </div>
+                <div class="form-group">
+                    <label for="passcode">Passcode</label>
+                    <input type="password" class="form-control" id="passcode" name="passcode">
                 </div>
                 <button type="submit" class="btn btn-primary">Open</button>
             </fieldset>

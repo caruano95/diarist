@@ -2,7 +2,7 @@
 {{<base}}
 {{$header}}
 {{<header}}
-{{$title}}Diarist App{{/title}}
+{{$title}}Get started{{/title}}
 {{/header}}
 {{/header}}
 
@@ -10,27 +10,17 @@
     <div class="my-3 mx-auto" style="max-width: 20rem;">
         <form name="formRegister" id="formRegister" method="POST" action="registerForm" >
             <fieldset>
-                <legend>Hello there! </legend>
+                <legend>Create a free account</legend>
                 <div class="form-group">
-                    <label for="inputPhone">Phone number</label>
-                    <input type="text" class="form-control" id="inputPhone" name="inputPhone" aria-describedby="phoneDisclaimer" placeholder="Enter your phone number...">
+                    <label for="phoneNumber">Phone number</label>
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" aria-describedby="phoneDisclaimer" placeholder="+1 (541) 7543010...">
                     <small id="phoneDisclaimer" class="form-text text-muted">We'll never share your phone number with anyone else.</small>
                 </div>
-                <fieldset class="form-group">
-                    <legend>Reminder</legend>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="optionPrompt" id="1" value="1" checked="">
-                            How was your day today?
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <label class="form-check-label">
-                            <input type="radio" class="form-check-input" name="optionPrompt" id="2" value="2">
-                            How are your alergies?
-                        </label>
-                    </div>
-                </fieldset>
+                <div class="form-group">
+                    <label for="passcode">Passcode</label>
+                    <input type="password" class="form-control" id="passcode" name="passcode" aria-describedby="passcodeDisclaimer">
+                    <small id="passcodeDisclaimer" class="form-text text-muted">Use at least 10 characters.</small>
+                </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </fieldset>
         </form>
