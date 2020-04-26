@@ -25,7 +25,7 @@ public class JournalEntry {
     @Expose
     public String content;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     @Expose
     public Date created;

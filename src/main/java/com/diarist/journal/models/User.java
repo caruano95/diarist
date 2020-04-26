@@ -23,7 +23,7 @@ public class User {
     @Column
     public String passcode;
 
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     public Date created;
 
