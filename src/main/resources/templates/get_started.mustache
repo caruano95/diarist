@@ -13,17 +13,17 @@
                 <legend>Create a free account</legend>
                 <div class="form-group">
                     <label for="username">Username</label>
-                    <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameDisclaimer" placeholder="Your username...">
+                    <input type="text" class="form-control" id="username" name="username" aria-describedby="usernameDisclaimer" placeholder="Your username..." required maxlength="20">
                 </div>
                 <div class="form-group">
                     <label for="phoneNumber">Phone number</label>
-                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" aria-describedby="phoneDisclaimer" placeholder="+1 (541) 7543010...">
+                    <input type="text" class="form-control" id="phoneNumber" name="phoneNumber" aria-describedby="phoneDisclaimer" placeholder="+1 (541) 7543010..." required maxlength="20">
                     <small id="phoneDisclaimer" class="form-text text-muted">We'll never share your phone number with anyone else.</small>
                 </div>
                 <div class="form-group">
                     <label for="passcode">Passcode</label>
-                    <input type="password" class="form-control" id="passcode" name="passcode" aria-describedby="passcodeDisclaimer">
-                    <small id="passcodeDisclaimer" class="form-text text-muted">Use at least 10 characters.</small>
+                    <input type="password" class="form-control" id="passcode" name="passcode" aria-describedby="passcodeDisclaimer" required maxlength="30" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{10,}">
+                    <small id="passcodeDisclaimer" class="form-text text-muted">Use at least 10 characters that are of at least one number, and one uppercase and lowercase letter.</small>
                 </div>
                 <button type="submit" class="btn btn-primary">Submit</button>
             </fieldset>

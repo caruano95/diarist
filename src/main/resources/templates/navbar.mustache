@@ -7,12 +7,18 @@
             <a class="nav-link mx-auto" href="/get_started">
                 <h2>Get Started</h2>
             </a>
-            <a class="nav-link mx-auto" href="/log_in">
+            <a class="nav-link mx-auto" href="/journal">
                 <h2>My Journal</h2>
             </a>
             <a class="nav-link mx-auto" href="/about">
                 <h2>About</h2>
             </a>
+        {{/hideNavbar}}
+
+        {{#hideNavbar}}
+            <form action="/log_out" method="post">
+                <input class="btn btn-primary" type="submit" name="logout" value="Log out" />
+            </form>
         {{/hideNavbar}}
     </div>
 </nav>
