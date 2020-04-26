@@ -4,6 +4,7 @@ import com.diarist.journal.models.JournalEntry;
 import com.diarist.journal.models.JournalService;
 import com.diarist.journal.models.User;
 import com.diarist.journal.models.UserService;
+import com.diarist.journal.util.PhoneUtils;
 import spark.Route;
 
 import java.net.URLDecoder;
@@ -16,11 +17,13 @@ public class WhatsappController {
 
     UserService userService;
     JournalService journalService;
+    PhoneUtils phoneUtils;
 
 
     public WhatsappController(UserService userService, JournalService journalService) {
         this.userService = userService;
         this.journalService = journalService;
+        this.phoneUtils = new PhoneUtils();
     }
 
     /**
@@ -32,6 +35,7 @@ public class WhatsappController {
         String messageText = URLDecoder.decode(request.queryParams("Body"), StandardCharsets.UTF_8);
         String sender = URLDecoder.decode(request.queryParams("From"), StandardCharsets.UTF_8);
         String senderNumber = sender.substring(sender.indexOf(":") + 1);
+        senderNumber = phoneUtils.getFormattedPhoneNumber(senderNumber);
 
         System.out.println("senderNumber = " + senderNumber);
 
