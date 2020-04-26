@@ -4,5 +4,5 @@ CREATE TABLE journal_entry (
     content TEXT NOT NULL,
     created DATE NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES user(id)
+    FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE
 );

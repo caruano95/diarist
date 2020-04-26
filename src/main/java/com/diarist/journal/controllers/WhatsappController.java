@@ -29,11 +29,11 @@ public class WhatsappController {
     public Route newMessage = (request, response) -> {
         String messageText = URLDecoder.decode(request.queryParams("Body"), StandardCharsets.UTF_8);
         final String senderNumber = whatsappService.getSenderNumber(request.queryParams("From"));
-
-        User user = userService.findByPhone(senderNumber);
-        JournalEntry journalEntry = new JournalEntry(user, messageText);
-        journalService.save(journalEntry);
-
+        if (senderNumber != null) {
+            User user = userService.findByPhone(senderNumber);
+            JournalEntry journalEntry = new JournalEntry(user, messageText);
+            journalService.save(journalEntry);
+        }
         return "";
     };
 
