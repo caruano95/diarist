@@ -64,7 +64,8 @@ public class JournalController {
         JournalEntry journalEntry = new JournalEntry(user, messageContent);
         journalService.save(journalEntry);
 
-        return response;
+        response.status(202);
+        return "";
     };
 
 }
