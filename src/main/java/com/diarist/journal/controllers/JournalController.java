@@ -32,10 +32,11 @@ public class JournalController {
     }
 
     public Route getList = (request, response) -> {
-        String userId = request.queryParams("user");
-        System.out.println( String.format("Getting a list of journal entries for %s", userId));
+        String username = request.queryParams("username");
+        System.out.println( String.format("Getting a list of journal entries for %s", username));
 
-        List<JournalEntry> journal = journalService.getJournal(userId);
+        User user = userService.findByUsername(username);
+        List<JournalEntry> journal = journalService.getJournal(user);
         response.type("application/json");
         return gson.toJson(journal);
     };
