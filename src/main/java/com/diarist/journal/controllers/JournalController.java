@@ -6,10 +6,7 @@ import com.diarist.journal.models.JournalService;
 import com.diarist.journal.models.User;
 import com.diarist.journal.models.UserService;
 import com.diarist.journal.util.PhoneUtils;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
 import spark.Route;
 
 import java.util.List;
@@ -47,14 +44,27 @@ public class JournalController {
     public Route create = (request, response) -> {
         JsonObject jsonObject = JsonParser.parseString(request.body()).getAsJsonObject();
 
-        final String number = phoneUtils.getFormattedPhoneNumber(jsonObject.get("phoneNumber").getAsString());
+
+        final JsonElement phoneParameter = jsonObject.get("phoneNumber");
+        final JsonElement usernameParameter = jsonObject.get("username");
+
+        User user;
+        if (phoneParameter != null) {
+            final String number = phoneUtils.getFormattedPhoneNumber(phoneParameter.getAsString());
+            user = userService.findByPhone(number);
+        } else if (usernameParameter != null){
+            user = userService.findByUsername(usernameParameter.getAsString());
+        } else {
+            response.status(400);
+            return response;
+        }
+
         final String messageContent = jsonObject.get("content").getAsString();
 
-        User user = userService.findByPhone(number);
         JournalEntry journalEntry = new JournalEntry(user, messageContent);
         journalService.save(journalEntry);
 
-        return "";
+        return response;
     };
 
 }
