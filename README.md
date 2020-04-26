@@ -15,8 +15,10 @@ It will also continue to send you a text every day so that you don't forget to u
 
 A "Diarist" is a person who writes a diary. 
 This app lets you send your journal updates via Whatsapp and view them on your browser.
+Note that:
 * It is my entry for the Twilio x DEV [hackathon](https://dev.to/devteam/announcing-the-twilio-hackathon-on-dev-2lh8).
 * It is based on the java [Spark framework](http://sparkjava.com/documentation.html#request). Heavily influenced by the [appointment reminders](https://www.twilio.com/docs/sms/tutorials/appointment-reminders-java-spark) app example from Twilio. 
+
 If you are curious about the future, inspirations or the process of building this
 you can check out the [docs](docs/diarist.md).
 
