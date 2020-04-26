@@ -9,7 +9,6 @@ import com.twilio.Twilio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.*;
-import spark.template.mustache.MustacheTemplateEngine;
 
 import javax.persistence.EntityManagerFactory;
 
@@ -73,6 +72,7 @@ public class Server {
 
         get("/log_in", webappController.journalLogin);
         post("/log_in", webappController.journalLoginProcess);
+        post("/log_out", webappController.journalLogout);
         get("/journal", webappController.journal);
 
 
@@ -91,32 +91,6 @@ public class Server {
                 "How was your day today?")
                 .create();
         System.out.println(message.getSid());
-        */
-    }
-
-    public static void startServer() {
-
-
-        /** Creates a new instance of Quartz Scheduler and starts it. */
-        /*
-        Scheduler scheduler = null;
-        try {
-            scheduler = StdSchedulerFactory.getDefaultScheduler();
-
-            scheduler.start();
-
-        } catch (SchedulerException se) {
-            System.out.println("Unable to start scheduler service");
-        }
-        */
-
-        /*
-        get("/", controller.index, new MustacheTemplateEngine());
-        get("/new", controller.renderCreatePage, new MustacheTemplateEngine());
-        post("/create", controller.create, new MustacheTemplateEngine());
-        post("/delete", controller.delete);
-
-        afterAfter(new LoggingFilter());
         */
     }
 
