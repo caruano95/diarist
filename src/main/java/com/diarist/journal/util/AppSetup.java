@@ -75,4 +75,8 @@ public class AppSetup {
         String port = env.get("APP_PORT");
         return port != null ? Integer.parseInt(port) : 4567;
     }
+
+    public boolean isApiEnabled() {
+        return Boolean.parseBoolean(env.get("ENABLE_API"));
+    }
 }

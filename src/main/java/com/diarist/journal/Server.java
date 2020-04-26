@@ -12,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import spark.*;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 
 import static spark.Spark.*;
 
@@ -52,10 +51,12 @@ public class Server {
         WhatsappController whatsappController = new WhatsappController(userService, journalService);
 
         path("/api", () -> {
-            path("/diary", () -> {
-                get("", journalController.getList);
-                post("", journalController.create);
-            });
+            if (appSetup.isApiEnabled()) {
+                path("/diary", () -> {
+                    get("", journalController.getList);
+                    post("", journalController.create);
+                });
+            }
             path("/adapter", () -> {
                 post("/whatsapp", whatsappController.newMessage);
             });
@@ -79,21 +80,6 @@ public class Server {
 
 
         get("/about", webappController.about);
-    }
-
-    public static void sendWhatsappMessage(){
-        /**
-         * Send
-         */
-        /*
-        final String recipientPhoneNumber = "+50259781548";
-        Message message = Message.creator(
-                new com.twilio.type.PhoneNumber("whatsapp:" + recipientPhoneNumber),
-                new com.twilio.type.PhoneNumber("whatsapp:" + appSetup.getTwilioPhoneNumber()),
-                "How was your day today?")
-                .create();
-        System.out.println(message.getSid());
-        */
     }
 
 }

@@ -5,6 +5,7 @@ import com.diarist.journal.models.JournalService;
 import com.diarist.journal.models.User;
 import com.diarist.journal.models.UserService;
 import com.diarist.journal.util.PhoneUtils;
+import com.twilio.rest.api.v2010.account.Message;
 import spark.Route;
 
 import java.net.URLDecoder;
@@ -45,6 +46,20 @@ public class WhatsappController {
 
         return "";
     };
+
+    //appSetup.getTwilioPhoneNumber()
+    public void sendNotification() {
+        final String senderPhoneNumber = "+50259781548";
+        final String recipientPhoneNumber = "+50259781548";
+        final String messageBody = "How was your day today?";
+
+        Message message = Message.creator(
+                new com.twilio.type.PhoneNumber(String.format("whatsapp:%s", senderPhoneNumber)),
+                new com.twilio.type.PhoneNumber(String.format("whatsapp:%s", recipientPhoneNumber)),
+                messageBody)
+                .create();
+        System.out.println(message.getSid());
+    }
 
 
 }

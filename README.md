@@ -68,5 +68,7 @@ mvn clean compile exec:java -Dexec.mainClass=com.diarist.journal.Server -Dexec.c
 | Property Name  | Default Value |
 | -------------- | ------------- |
 |   APP_PORT     |     4567      |
+|  ENABLE_API    |     false     |
+
 
 
