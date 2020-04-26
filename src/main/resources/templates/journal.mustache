@@ -9,20 +9,18 @@
 
 {{$content}}
     {{#journalEntries}}
-        <div class="card border-primary my-4 mx-auto" style="max-width: 40rem;">
-            <div class="card-header">
-                <h4>
-                    {{getCreatedAsDate}}
-                </h4>
-            </div>
+        <div class="card my-4 mx-auto" style="max-width: 40rem;">
             <div class="card-body">
+                <h4 class="card-title"><u>{{getCreatedAsDate}}</u></h4>
                 <p class="card-text text-justify">{{content}}</p>
             </div>
         </div>
     {{/journalEntries}}
     {{^journalEntries}}
-        <div class="well" mx-auto>
-            There are no diary records for this number.
+        <div class="card my-4 mx-auto" style="max-width: 40rem;">
+            <div class="card-body">
+                <h4 class="card-title">There are no diary records for this number.</h4>
+            </div>
         </div>
     {{/journalEntries}}
 {{/content}}
