@@ -5,6 +5,7 @@ import com.diarist.journal.models.JournalEntry;
 import com.diarist.journal.models.JournalService;
 import com.diarist.journal.models.User;
 import com.diarist.journal.models.UserService;
+import com.diarist.journal.util.PhoneUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -25,10 +26,12 @@ public class JournalController {
 
     private JournalService journalService;
     private UserService userService;
+    private PhoneUtils phoneUtils;
 
     public JournalController(UserService userService, JournalService journalService) {
         this.userService = userService;
         this.journalService = journalService;
+        this.phoneUtils = new PhoneUtils();
     }
 
     public Route getList = (request, response) -> {
@@ -44,7 +47,7 @@ public class JournalController {
     public Route create = (request, response) -> {
         JsonObject jsonObject = JsonParser.parseString(request.body()).getAsJsonObject();
 
-        final String number = jsonObject.get("phoneNumber").getAsString();
+        final String number = phoneUtils.getFormattedPhoneNumber(jsonObject.get("phoneNumber").getAsString());
         final String messageContent = jsonObject.get("content").getAsString();
 
         User user = userService.findByPhone(number);
