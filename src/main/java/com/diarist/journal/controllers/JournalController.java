@@ -1,7 +1,6 @@
 package com.diarist.journal.controllers;
 
 
-import com.diarist.journal.models.Appointment;
 import com.diarist.journal.models.JournalEntry;
 import com.diarist.journal.models.JournalService;
 import com.google.gson.Gson;
