@@ -2,6 +2,7 @@ package com.diarist.journal.controllers;
 
 import com.diarist.journal.models.JournalEntry;
 import com.diarist.journal.models.JournalService;
+import com.diarist.journal.models.UserService;
 import com.google.i18n.phonenumbers.NumberParseException;
 import com.google.i18n.phonenumbers.PhoneNumberUtil;
 import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
@@ -16,18 +17,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.google.i18n.phonenumbers.PhoneNumberUtil.PhoneNumberFormat.INTERNATIONAL;
-
 /**
  * Webapp controller class.
  */
 public class WebappController {
 
-    JournalService journalService;
+    private UserService userService;
+    private JournalService journalService;
 
-    final String CURRENT_USER = "user";
+    final String CURRENT_USER_SESSION_IDENTIFIER = "user";
 
-    public WebappController(JournalService journalService) {
+    public WebappController(UserService userService, JournalService journalService) {
+        this.userService = userService;
         this.journalService = journalService;
     }
 
@@ -44,7 +45,9 @@ public class WebappController {
         /**
          * Validate we understand the phone number
          */
-        isValidPhoneNumber(inputPhone);
+        if(isValidPhoneNumber(inputPhone)){
+            return render(Collections.singletonMap("invalidPhone", true), "get_started.mustache");
+        }
 
 
         System.out.println(String.format("\n\n\nRegistering new user:\nusername: %s\ninputPhone: %s\npasscode: %s\n\n\n", username, inputPhone, passcode));
@@ -74,7 +77,7 @@ public class WebappController {
             /*
              * Set session / cookie
              */
-            request.session().attribute(CURRENT_USER, username);
+            request.session().attribute(CURRENT_USER_SESSION_IDENTIFIER, username);
 
             response.redirect("/journal");
             return response;
@@ -83,7 +86,7 @@ public class WebappController {
 
 
     public Route journalLogout = (request, response) -> {
-        request.session().removeAttribute(CURRENT_USER);
+        request.session().removeAttribute(CURRENT_USER_SESSION_IDENTIFIER);
 
         response.redirect("/");
         return response;
@@ -95,7 +98,7 @@ public class WebappController {
 
     public Route journal = (request, response) -> {
 
-        String username = request.session().attribute(CURRENT_USER);
+        String username = request.session().attribute(CURRENT_USER_SESSION_IDENTIFIER);
 
         if (username == null) {
             response.redirect("/log_in");
