@@ -18,8 +18,7 @@ public class JournalEntry {
     public Long id;
 
     @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name="id")
-    @Column(name = "user_id")
+    @JoinColumn(name = "user_id")
     public User user;
 
     @Column
