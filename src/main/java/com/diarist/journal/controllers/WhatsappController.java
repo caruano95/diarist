@@ -1,11 +1,6 @@
 package com.diarist.journal.controllers;
 
-import com.diarist.journal.models.JournalEntry;
-import com.diarist.journal.models.JournalService;
-import com.diarist.journal.models.User;
-import com.diarist.journal.models.UserService;
-import com.diarist.journal.util.PhoneUtils;
-import com.twilio.rest.api.v2010.account.Message;
+import com.diarist.journal.models.*;
 import spark.Route;
 
 import java.net.URLDecoder;
@@ -16,15 +11,14 @@ import java.nio.charset.StandardCharsets;
  */
 public class WhatsappController {
 
-    UserService userService;
-    JournalService journalService;
-    PhoneUtils phoneUtils;
+    private UserService userService;
+    private JournalService journalService;
+    private WhatsappService whatsappService;
 
-
-    public WhatsappController(UserService userService, JournalService journalService) {
+    public WhatsappController(UserService userService, JournalService journalService, WhatsappService whatsappService) {
         this.userService = userService;
         this.journalService = journalService;
-        this.phoneUtils = new PhoneUtils();
+        this.whatsappService = whatsappService;
     }
 
     /**
@@ -34,11 +28,7 @@ public class WhatsappController {
      */
     public Route newMessage = (request, response) -> {
         String messageText = URLDecoder.decode(request.queryParams("Body"), StandardCharsets.UTF_8);
-        String sender = URLDecoder.decode(request.queryParams("From"), StandardCharsets.UTF_8);
-        String senderNumber = sender.substring(sender.indexOf(":") + 1);
-        senderNumber = phoneUtils.getFormattedPhoneNumber(senderNumber);
-
-        System.out.println("senderNumber = " + senderNumber);
+        final String senderNumber = whatsappService.getSenderNumber(request.queryParams("From"));
 
         User user = userService.findByPhone(senderNumber);
         JournalEntry journalEntry = new JournalEntry(user, messageText);
@@ -46,20 +36,5 @@ public class WhatsappController {
 
         return "";
     };
-
-    //appSetup.getTwilioPhoneNumber()
-    public void sendNotification() {
-        final String senderPhoneNumber = "+50259781548";
-        final String recipientPhoneNumber = "+50259781548";
-        final String messageBody = "How was your day today?";
-
-        Message message = Message.creator(
-                new com.twilio.type.PhoneNumber(String.format("whatsapp:%s", senderPhoneNumber)),
-                new com.twilio.type.PhoneNumber(String.format("whatsapp:%s", recipientPhoneNumber)),
-                messageBody)
-                .create();
-        System.out.println(message.getSid());
-    }
-
 
 }

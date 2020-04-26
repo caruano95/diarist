@@ -5,6 +5,7 @@ import com.diarist.journal.controllers.WebappController;
 import com.diarist.journal.controllers.WhatsappController;
 import com.diarist.journal.models.JournalService;
 import com.diarist.journal.models.UserService;
+import com.diarist.journal.models.WhatsappService;
 import com.diarist.journal.util.AppSetup;
 import com.twilio.Twilio;
 import org.slf4j.Logger;
@@ -46,9 +47,10 @@ public class Server {
         EntityManager entityManager = appSetup.getEntityManagerFactory().createEntityManager();
         UserService userService = new UserService(entityManager);
         JournalService journalService = new JournalService(entityManager);
+        WhatsappService whatsappService = new WhatsappService(appSetup.getTwilioPhoneNumber());
 
         JournalController journalController = new JournalController(userService, journalService);
-        WhatsappController whatsappController = new WhatsappController(userService, journalService);
+        WhatsappController whatsappController = new WhatsappController(userService, journalService, whatsappService);
 
         path("/api", () -> {
             if (appSetup.isApiEnabled()) {
@@ -62,11 +64,10 @@ public class Server {
             });
         });
 
-
         /**
          * Frontend app
          */
-        WebappController webappController = new WebappController(userService, journalService);
+        WebappController webappController = new WebappController(userService, journalService, whatsappService);
         get("/", webappController.onboarding);
 
         get("/get_started", webappController.getStarted);

@@ -1,9 +1,6 @@
 package com.diarist.journal.controllers;
 
-import com.diarist.journal.models.JournalEntry;
-import com.diarist.journal.models.JournalService;
-import com.diarist.journal.models.User;
-import com.diarist.journal.models.UserService;
+import com.diarist.journal.models.*;
 import com.diarist.journal.util.PhoneUtils;
 import spark.ModelAndView;
 import spark.Route;
@@ -24,12 +21,14 @@ public class WebappController {
     private UserService userService;
     private JournalService journalService;
     private PhoneUtils phoneUtils;
+    private WhatsappService whatsappService;
 
     final String CURRENT_USER_SESSION_IDENTIFIER = "user";
 
-    public WebappController(UserService userService, JournalService journalService) {
+    public WebappController(UserService userService, JournalService journalService, WhatsappService whatsappService) {
         this.userService = userService;
         this.journalService = journalService;
+        this.whatsappService = whatsappService;
         phoneUtils = new PhoneUtils();
     }
 
@@ -57,6 +56,7 @@ public class WebappController {
         /**
          * TODO: build functionality to send message and schedule
          */
+        whatsappService.sendNotification(newUser);
 
         response.redirect("/welcome");
         return response;
