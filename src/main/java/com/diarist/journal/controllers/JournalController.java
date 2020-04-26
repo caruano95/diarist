@@ -3,6 +3,8 @@ package com.diarist.journal.controllers;
 
 import com.diarist.journal.models.JournalEntry;
 import com.diarist.journal.models.JournalService;
+import com.diarist.journal.models.User;
+import com.diarist.journal.models.UserService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
@@ -16,15 +18,16 @@ import java.util.List;
  */
 public class JournalController {
 
-
-    private Gson gson = new GsonBuilder()
+    private final Gson gson = new GsonBuilder()
                             .excludeFieldsWithoutExposeAnnotation()
                             .setDateFormat("dd/MMM/yyyy")
                             .create();
 
     private JournalService journalService;
+    private UserService userService;
 
-    public JournalController(JournalService journalService) {
+    public JournalController(UserService userService, JournalService journalService) {
+        this.userService = userService;
         this.journalService = journalService;
     }
 
@@ -43,7 +46,8 @@ public class JournalController {
         final String number = jsonObject.get("phoneNumber").getAsString();
         final String messageContent = jsonObject.get("content").getAsString();
 
-        JournalEntry journalEntry = new JournalEntry(number, messageContent);
+        User user = userService.findByPhone(number);
+        JournalEntry journalEntry = new JournalEntry(user, messageContent);
         journalService.save(journalEntry);
 
         return "";

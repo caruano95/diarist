@@ -2,6 +2,8 @@ package com.diarist.journal.controllers;
 
 import com.diarist.journal.models.JournalEntry;
 import com.diarist.journal.models.JournalService;
+import com.diarist.journal.models.User;
+import com.diarist.journal.models.UserService;
 import spark.Route;
 
 import java.net.URLDecoder;
@@ -12,9 +14,12 @@ import java.nio.charset.StandardCharsets;
  */
 public class WhatsappController {
 
+    UserService userService;
     JournalService journalService;
 
-    public WhatsappController(JournalService journalService) {
+
+    public WhatsappController(UserService userService, JournalService journalService) {
+        this.userService = userService;
         this.journalService = journalService;
     }
 
@@ -28,7 +33,10 @@ public class WhatsappController {
         String sender = URLDecoder.decode(request.queryParams("From"), StandardCharsets.UTF_8);
         String senderNumber = sender.substring(sender.indexOf(":") + 1);
 
-        JournalEntry journalEntry = new JournalEntry(senderNumber, messageText);
+        System.out.println("senderNumber = " + senderNumber);
+
+        User user = userService.findByPhone(senderNumber);
+        JournalEntry journalEntry = new JournalEntry(user, messageText);
         journalService.save(journalEntry);
 
         return "";

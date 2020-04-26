@@ -17,8 +17,10 @@ public class JournalEntry {
     @Column
     public Long id;
 
+    @ManyToOne(fetch=FetchType.LAZY)
+    @JoinColumn(name="id")
     @Column(name = "user_id")
-    public String userId;
+    public User user;
 
     @Column
     @Expose
@@ -37,23 +39,16 @@ public class JournalEntry {
     public JournalEntry() {
     }
 
-    public JournalEntry(String user, String content) {
-        this.userId = user;
+    public JournalEntry(User user, String content) {
+        this.user = user;
         this.content = content;
     }
 
+    /**
+     * Used by the template to display the date as 'Apr 19'
+     */
     public String getCreatedAsDate(){
         SimpleDateFormat formatter = new SimpleDateFormat("MMM dd");
         return formatter.format(created);
-    }
-
-    @Override
-    public String toString() {
-        return "JournalEntry{" +
-                "id=" + id +
-                ", userId='" + userId + '\'' +
-                ", content='" + content + '\'' +
-                ", created=" + created +
-                '}';
     }
 }

@@ -4,12 +4,14 @@ import com.diarist.journal.controllers.JournalController;
 import com.diarist.journal.controllers.WebappController;
 import com.diarist.journal.controllers.WhatsappController;
 import com.diarist.journal.models.JournalService;
+import com.diarist.journal.models.UserService;
 import com.diarist.journal.util.AppSetup;
 import com.twilio.Twilio;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import spark.*;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
 import static spark.Spark.*;
@@ -42,11 +44,12 @@ public class Server {
          * Gets the entity manager based on environment variable DATABASE_URL and injects it into
          * JournalService which handles DB operations.
          */
-        EntityManagerFactory factory = appSetup.getEntityManagerFactory();
-        JournalService journalService = new JournalService(factory.createEntityManager());
+        EntityManager entityManager = appSetup.getEntityManagerFactory().createEntityManager();
+        UserService userService = new UserService(entityManager);
+        JournalService journalService = new JournalService(entityManager);
 
-        JournalController journalController = new JournalController(journalService);
-        WhatsappController whatsappController = new WhatsappController(journalService);
+        JournalController journalController = new JournalController(userService, journalService);
+        WhatsappController whatsappController = new WhatsappController(userService, journalService);
 
         path("/api", () -> {
             path("/diary", () -> {
@@ -62,8 +65,7 @@ public class Server {
         /**
          * Frontend app
          */
-
-        WebappController webappController = new WebappController(journalService);
+        WebappController webappController = new WebappController(userService, journalService);
         get("/", webappController.onboarding);
 
         get("/get_started", webappController.getStarted);

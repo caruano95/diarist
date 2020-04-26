@@ -6,7 +6,7 @@
         <description>
             This unit manages journal entries and notification schedules
         </description>
-        <class>com.diarist.journal.models.Appointment</class>
+        <class>com.diarist.journal.models.User</class>
         <class>com.diarist.journal.models.JournalEntry</class>
         <properties>
             <property name="eclipselink.target-database" value="MySQL"/>

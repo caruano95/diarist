@@ -2,10 +2,9 @@ package com.diarist.journal.controllers;
 
 import com.diarist.journal.models.JournalEntry;
 import com.diarist.journal.models.JournalService;
+import com.diarist.journal.models.User;
 import com.diarist.journal.models.UserService;
-import com.google.i18n.phonenumbers.NumberParseException;
-import com.google.i18n.phonenumbers.PhoneNumberUtil;
-import com.google.i18n.phonenumbers.Phonenumber.PhoneNumber;
+import com.diarist.journal.util.PhoneUtils;
 import spark.ModelAndView;
 import spark.Route;
 import spark.template.mustache.MustacheTemplateEngine;
@@ -24,12 +23,14 @@ public class WebappController {
 
     private UserService userService;
     private JournalService journalService;
+    private PhoneUtils phoneUtils;
 
     final String CURRENT_USER_SESSION_IDENTIFIER = "user";
 
     public WebappController(UserService userService, JournalService journalService) {
         this.userService = userService;
         this.journalService = journalService;
+        phoneUtils = new PhoneUtils();
     }
 
     /*
@@ -43,14 +44,19 @@ public class WebappController {
         String passcode = URLDecoder.decode(request.queryParams("passcode"), StandardCharsets.UTF_8);
 
         /**
-         * Validate we understand the phone number
+         * Validate we understand the phone number and format
          */
-        if(isValidPhoneNumber(inputPhone)){
+        if(!phoneUtils.isValidPhoneNumber(inputPhone)){
             return render(Collections.singletonMap("invalidPhone", true), "get_started.mustache");
         }
+        String formattedPhone = phoneUtils.getFormattedPhoneNumber(inputPhone);
 
+        User newUser = new User(username, formattedPhone, passcode);
+        userService.save(newUser);
 
-        System.out.println(String.format("\n\n\nRegistering new user:\nusername: %s\ninputPhone: %s\npasscode: %s\n\n\n", username, inputPhone, passcode));
+        /**
+         * TODO: build functionality to send message and schedule
+         */
 
         response.redirect("/welcome");
         return response;
@@ -70,7 +76,7 @@ public class WebappController {
         /*
         Checking for valid credentials
          */
-        if (username.equals("error")) {
+        if (!userService.isUserValid(username, passcode)) {
             return render(Collections.singletonMap("badLogin", true), "my_diary_login.mustache");
         }else {
             System.out.println(String.format("\n\n\nLoading the journal for the following user:\nusername: %s\npasscode: %s\n\n\n", username, passcode));
@@ -98,6 +104,7 @@ public class WebappController {
 
     public Route journal = (request, response) -> {
 
+        //Get user id from session / cookie
         String username = request.session().attribute(CURRENT_USER_SESSION_IDENTIFIER);
 
         if (username == null) {
@@ -106,14 +113,11 @@ public class WebappController {
         }
 
         System.out.println(String.format("\n\n\n\n\n\n\nReading journal from user: %s\n\n\n\n\n\n\n", username));
+        User user = userService.findByUsername(username);
+        List<JournalEntry> journal = journalService.getJournal(user);
 
 
-        //Get user id from session / cookie
-        String userId = "+12345678";
         Map<String, Object> map = new HashMap<>();
-        List<JournalEntry> journal = journalService.getJournal(userId);
-
-
         map.put("journalEntries", journal);
         map.put("hideNavbar", true);
         return render(map, "journal.mustache");
@@ -139,16 +143,4 @@ public class WebappController {
         return render(map, templatePath);
     }
 
-    public boolean isValidPhoneNumber(String phoneNumber) {
-        PhoneNumberUtil phoneUtil = PhoneNumberUtil.getInstance();
-        PhoneNumber phone = null;
-        try {
-            phone = phoneUtil.parse(phoneNumber, "US");
-        } catch (NumberParseException e) {
-            System.err.println("NumberParseException was thrown: " + e.toString());
-        }
-        //String formattedPhoneNumber = phoneUtil.format(phone, INTERNATIONAL);
-        //System.out.println("formattedPhoneNumber = " + formattedPhoneNumber);
-        return phoneUtil.isValidNumber(phone);
-    }
 }
