@@ -22,9 +22,9 @@ Note that:
 If you are curious about the future, inspirations or the process of building this
 you can check out the [docs](docs/diarist.md).
 
+
 ## How to run it
 
-*Note: the app requires a MySQL instance up and running*
 
 ### Run migrations
 ```
@@ -74,4 +74,6 @@ mvn clean compile exec:java -Dexec.mainClass=com.diarist.journal.Server -Dexec.c
 |  ENABLE_API    |     false     |
 
 
-
+## Local developement
+* In order to receive a user's message, you'll need make your computer accessible from the internet with [ngrok](https://ngrok.com/).
+* You need to provide a MySQL instance on your local environment. 
