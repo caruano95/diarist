@@ -1,14 +1,17 @@
 # Diarist
 Journaling made simple. 
 
-How it works:
-1. Create an account
-1. You get a whatsapp message asking `How was your day today?`
-1. You reply to the text with all your adventures
-1. That's it ! 
+Diarist is an app to help you update your Journal directly from Whatsapp.
 
-Once you feel like reading some of your old entries you can go to the webapp or consume from the rest API to get your messages formatted and time-stamped.
-It will also continue to send you a text every day so that you don't forget to update your diary.
+How it works:
+1. Create an account by providing your phone number
+<img src="docs/get_started.png" alt="Get Started" width="250"/>
+1. You'll receive a whatsapp message from us asking you `How was your day today?`. Just reply to it and we'll save your response.
+<img src="docs/welcome.png" alt="Welcome" width="250"/>
+<img src="docs/Whatsapp.jpg" alt="Whatsapp" width="250"/>
+1. Once you feel like reading some of your old entries you can go to the webapp or consume from the rest API to get your messages formatted and time-stamped.
+   It will also continue to send you a text every day so that you don't forget to update your diary.
+<img src="docs/diary.png" alt="Diary" width="250"/>
 
 
 ## About the app
