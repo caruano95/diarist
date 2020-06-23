@@ -10,9 +10,6 @@ How it works:
 </p>
 2. You'll receive a whatsapp message from us asking you `How was your day today?`. Just reply to it and we'll save your response.
 <p align="center">
-   <img src="docs/welcome.png" alt="Welcome" width="500"/>
-</p>
-<p align="center">
    <img src="docs/whatsapp.jpg" alt="Whatsapp" width="300"/>
 </p>
 3. Once you feel like reading some of your old entries you can go to the webapp or consume from the rest API to get your messages formatted and time-stamped.
