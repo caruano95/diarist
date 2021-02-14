@@ -11,7 +11,7 @@ The manager consists of a REST API to write and read all your entries. Not much 
 
 The viewer is meant to create a pleasant way to review your old entries. It currently doesn't do much but I have big plans for it in the future
 
-### Why did you started this project ?
+### Why did you start this project ?
 
 I've been thinking about diaries since I saw that [Loretta](https://youtu.be/6xSxXiHwMrg) superbowl commercial from Google (If you haven't seen it, go do that now, it's really good).
 Of course, once the game was over, my first instinct was to `!youtube how to write a diary`<sup>[[1]](#1)</sup> which did lead to some [awesome examples](https://youtu.be/fPkPesz-t_Q).
