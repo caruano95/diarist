@@ -48,15 +48,17 @@ public class AppSetup {
 
     public String getDatabaseSchema() {
         final String schema = env.get("DATABASE_SCHEMA");
-        return schema != null ? schema : "diarist";
+        return schema != null ? schema : "diarist_test";
     }
 
     public String getDatabaseUser() {
-        return env.get("DATABASE_USER");
+        final String dbUser = env.get("DATABASE_USER");
+        return dbUser != null ? dbUser : "diarist";
     }
 
     public String getDatabasePass() {
-        return env.get("DATABASE_PASS");
+        final String dbPass = env.get("DATABASE_PASS");
+        return dbPass != null ? dbPass : "diary";
     }
 
     public String getAccountSid() {
