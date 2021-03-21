@@ -8,7 +8,7 @@ import org.flywaydb.core.Flyway;
  * application. For testing you must specify a different DATABASE_URL environment variable pointing
  * to your testing database.
  */
-class Migrator {
+public class Migrator {
     public static void main(String[] args) throws Exception {
         AppSetup appSetup = new AppSetup();
         /**
