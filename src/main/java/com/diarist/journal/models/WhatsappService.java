@@ -3,10 +3,6 @@ package com.diarist.journal.models;
 import com.diarist.journal.util.PhoneUtils;
 import com.twilio.rest.api.v2010.account.Message;
 
-import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
-import java.util.Collections;
-
 /**
  * Class that provides an abstraction to an Appointment's entity database access
  */

@@ -81,6 +81,8 @@ public class Server {
 
 
         get("/about", webappController.about);
+
+        logger.info("Startup successful");
     }
 
 }
