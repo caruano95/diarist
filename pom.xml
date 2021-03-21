@@ -8,13 +8,13 @@
     <version>1.0</version>
     <name>Diarist app</name>
     <description>
-        An service to handle Journal entries
+        A service to handle Journal entries
     </description>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <logback.version>1.1.11</logback.version>
+        <logback.version>1.3.0-alpha5</logback.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -110,7 +110,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.1</version>
+            <version>4.13</version>
             <scope>test</scope>
         </dependency>
         <dependency>
