@@ -32,6 +32,10 @@ you can check out the [docs](docs/diarist.md).
 
 ## How to run it
 
+### Start your mysql instance
+```
+docker-compose -f src/main/resources/docker/docker-compose.yml up -d
+```
 
 ### Run migrations
 ```
@@ -46,8 +50,8 @@ mvn clean compile exec:java -Dexec.mainClass=com.diarist.journal.Server -Dexec.c
 ## Instalation guide
 
 1. Configure environment variables for all the properties that don't have a default value.
-1. Make sure you have an instance of MySQL running.
-1. Create a schema for the app. Should be called `diarist` unless `DATABASE_SCHEMA` is set
+1. Make sure you have an instance of MySQL running. There's a docker-compose on the [resources directory](src/main/resources/docker/) that can be useful.
+1. Create a schema for the app. Should be called `diarist_test` unless `DATABASE_SCHEMA` is set
 1. Run migrations with the maven command
 1. Execute the app 
 
@@ -57,11 +61,11 @@ mvn clean compile exec:java -Dexec.mainClass=com.diarist.journal.Server -Dexec.c
 
 | Property Name    | Default Value |
 | --------------   | ------------- |
-| DATABASE_USER    |               |
-| DATABASE_PASS    |               |
+| DATABASE_USER    | diarist       |
+| DATABASE_PASS    | diary         |
 | DATABASE_HOST    | localhost     |
 | DATABASE_PORT    | 3306          |
-| DATABASE_SCHEMA  | diarist       |
+| DATABASE_SCHEMA  | diarist_test  |
 
 #### Twilio
 
